@@ -1,0 +1,315 @@
+/* Общие стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Хедер */
+header {
+    background-color: rgb(37 99 235);
+    padding: 3px 0;
+    width: 100%;
+    color: white;
+}
+
+section {
+
+    padding: 0;
+    border-radius: 10px;
+
+}
+
+section h2 {
+    color: #000000;
+
+    margin-bottom: 30px;
+    font-size: 2.1rem;
+    border-bottom: 2px solid #e6e6e6;
+    padding-bottom: 10px;
+
+}
+
+section p {
+    line-height: 1.8;
+    color: #000000;
+    font-family: 'Georgia', 'Verdana', serif;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+
+    padding-bottom: 2px;
+}
+
+
+
+.underline-text {
+    border-bottom: 2px solid #e6e6e6;
+}
+
+section label {
+    color: #000000;
+    font-family: 'Georgia', 'Verdana', serif;
+    margin-bottom: 30px;
+    font-size: 1rem;
+
+    padding-bottom: 2px;
+}
+
+
+
+
+.custom-select {
+    position: relative;
+    width: 350px;
+    cursor: pointer;
+    height: 40px; /* Устанавливаем желаемую высоту */
+
+}
+
+.select-trigger {
+    padding: 10px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.select-trigger2 {
+    padding: 10px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.arrow {
+    display: inline-block;
+    margin-left: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.select-trigger.open .arrow {
+    transform: rotate(-135deg);
+}
+
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    overflow: hidden;
+}
+
+.options2 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    overflow: hidden;
+
+}
+
+.option {
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeIn 0.4s ease forwards;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.option:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.option:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.option:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+
+/* Стили для заголовка */
+.logo {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    padding: 0 0;
+    font-size: 28px;
+}
+
+
+/* Контейнер */
+.container {
+    max-width: 1600px; /* Фиксированная ширина */
+    padding: 0 40px; /* Отступы для небольших экранов */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Навигационные ссылки */
+.nav-link {
+    font-family: "Inter", sans-serif;
+    color: white !important;
+    font-size: 18px;
+}
+
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.bg-gray-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid #e5e7eb;
+}
+
+.duration-300 {
+    animation-duration: .3s;
+    transition-duration: .3s;
+}
+
+.transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+}
+
+
+/* Добавим плавный эффект увеличения иконок */
+.icon-service {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-service:hover {
+    transform: scale(1.2);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-collapse {
+
+    /* flex-grow: 1; */
+    align-items: center;
+}
+
+
+#slides {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#slides > div {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Анимация для всей карточки услуги */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#slides {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#slides > div {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+#toggle-password, #toggle-confirm-password {
+    font-size: 1.2em;
+    color: #555;
+}
+
+#success-message {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    visibility: hidden;
+}
+
+#success-message.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
