@@ -172,10 +172,6 @@ section label {
 }
 
 
-
-
-
-
 a {
     color: #007bff;
     text-decoration: none;
@@ -301,14 +297,24 @@ a:hover {
 }
 
 #success-message {
+    position: fixed;
+    top: 10%;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(37, 99, 235, 0.9);
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 18px;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
     visibility: hidden;
+    transition: opacity 1s ease-in-out;
+    z-index: 1000;
 }
 
 #success-message.show {
     visibility: visible;
     opacity: 1;
+    color: rgb(255,255,255);
 }
 
 

@@ -13,6 +13,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
 
+    <!-- Подключение CSS Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
@@ -20,7 +25,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-md ">
         <div class="container">
             <a class="navbar-brand logo" href="index.html">Математика</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -39,9 +44,112 @@
     </nav>
 </header>
 
+<!-- Центральная надпись -->
+<main class="mt-5 text-center">
+    <h1 class="text-primary display-4 text-5xl">Личный кабинет</h1>
+</main>
+
+
+
+<div class="container justify-content-center mx-auto px-4 flex flex-col sm:flex-row gap-4 mt-12">
+
+    <!-- Левый контейнер (статистика и запланированные занятия) -->
+    <div class="w-full sm:w-1/3 flex flex-col space-y-8">
+        <!-- Блок Статистика занятий -->
+        <div class="w-full rounded-lg border bg-card text-card-foreground shadow-md">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold">Статистика занятий</h3>
+                <ul class="space-y-2 mt-4">
+                    <li class="flex justify-between items-center bg-gray-100">
+                        <span class="font-medium">Пройдено занятий за эту неделю:</span><span>2/3</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-gray-100">
+                        <span class="font-medium">Общее количество пройденных занятий:</span><span>15</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-gray-100">
+                        <span class="font-medium">Выполненных домашних заданий за эту неделю:</span><span>1/3</span>
+                    </li>
+                    <li class="flex justify-between items-center bg-gray-100">
+                        <span class="font-medium">Общее количество домашних заданий:</span><span>3</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Блок Запланированные занятия -->
+        <div class="w-full rounded-lg border bg-card text-card-foreground shadow-md">
+            <div class="p-6">
+                <h3 class="text-2xl font-semibold">Запланированные занятия</h3>
+                <ul class="space-y-2 mt-4">
+                    <!-- Запланированное занятие 1 -->
+                    <li class="flex justify-between items-center bg-gray-100 p-2 rounded">
+                        <span>15.05.2023 - 14:00</span><span class="font-medium">Алгебра</span>
+                    </li>
+                    <!-- Запланированное занятие 2 -->
+                    <li class="flex justify-between items-center bg-gray-100 p-2 rounded">
+                        <span>17.05.2023 - 16:00</span><span class="font-medium">Геометрия</span>
+                    </li>
+                    <!-- Запланированное занятие 3 -->
+                    <li class="flex justify-between items-center bg-gray-100 p-2 rounded">
+                        <span>19.05.2023 - 15:00</span><span class="font-medium">Тригонометрия</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Правый контейнер (Запись на занятие) -->
+    <div class="w-full sm:w-3/5 rounded-lg border bg-card text-card-foreground shadow-md">
+        <div class="p-6 bg-blue-600 text-white rounded-t-lg">
+            <h3 class="text-2xl font-semibold">Запись на занятие</h3>
+            <p class="text-sm text-blue-100">Выберите дату и время для вашего следующего урока</p>
+        </div>
+
+        <div class="p-3 pt-0 space-y-6 pb-8">
+            <div class="flex flex-col sm:flex-row sm:space-x-6">
+                <!-- Дата занятия -->
+                <div class="w-full sm:w-2/5"> <!-- Уменьшена ширина с w-1/2 на w-2/5 -->
+                    <h2 class="text-lg font-semibold text-gray-700 py-4">Дата занятия</h2>
+                    <input type="text" id="calendar" class="w-full bg-background border border-input p-2 rounded-md mt-2 hidden" placeholder="Выберите дату" />
+                </div>
+
+                <!-- Время занятия -->
+                <div class="w-full sm:w-2/5">
+                    <h2 class="text-lg font-semibold text-gray-700 py-4">Время занятия</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mt-2">
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">09:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">10:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">11:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">12:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">13:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">14:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">15:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">16:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">17:00</button>
+                        <button class="w-full bg-background border border-input p-2 rounded-md time-btn">18:00</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Кнопка для бронирования -->
+            <div class="w-full flex justify-center mt-6">
+                <button class="bg-green-600 text-white p-2 rounded-md w-2/3 max-w-md">Записаться</button> <!-- Уменьшена ширина с w-3/4 на w-2/3 -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
 
 <!-- Футер -->
-
+<br>
+<br>
+<br>
+<br>
 <footer class="bg-gray-800 text-white fixed bottom-0 mt-14 w-full">
     <div class="container mx-auto flex justify-between items-center py-2">
         <!-- Надпись -->
@@ -61,7 +169,44 @@
         </div>
     </div>
 </footer>
-
-
 </body>
+
+<script>
+    // Получаем текущую дату
+    const today = new Date();
+
+    // Получаем дату через 2 месяца
+    const twoMonthsLater = new Date();
+    twoMonthsLater.setMonth(today.getMonth() + 2);
+
+    // Инициализация Flatpickr с ограничением по датам
+    flatpickr("#calendar", {
+        dateFormat: "Y-m-d", // Формат даты
+        static: true,         // Календарь будет отображаться на странице
+        inline: true,         // Отображение календаря сразу в месте на странице
+        minDate: today,       // Ограничение на минимальную дату (сегодня)
+        maxDate: twoMonthsLater, // Ограничение на максимальную дату (2 месяца вперед)
+        onChange: function (selectedDates, dateStr, instance) {
+            // Вывод выбранной даты в консоль
+            console.log("Выбранная дата: " + dateStr);
+        }
+    });
+
+
+    // Покраска кнопок времени при нажатии
+    const buttons = document.querySelectorAll('.time-btn');
+
+    // Добавляем обработчик события для каждой кнопки
+    buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Снимаем цвет с уже активных кнопок
+        buttons.forEach(b => b.style.backgroundColor = '');
+
+        // Меняем фон на #569ff7 для выбранной кнопки
+        button.style.backgroundColor = '#569ff7';
+    });
+});
+
+
+</script>
 </html>
