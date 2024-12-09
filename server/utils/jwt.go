@@ -1,18 +1,29 @@
 package utils
 
 import (
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 	"time"
 )
 
 var jwtKey = []byte("Authorization") // замените на секретный ключ
 
+type Claims struct {
+	UserID uint   `json:"user_id"`
+	Role   string `json:"role"` // Добавляем роль
+	jwt.RegisteredClaims
+}
+
 // Создание JWT
-func GenerateJWT(userID uint) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"userID": userID,
-		"exp":    time.Now().Add(3 * time.Hour).Unix(),
-	})
+func GenerateJWT(userID uint, role string) (string, error) {
+	claims := Claims{
+		UserID: userID,
+		Role:   role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)), // Токен действует 24 часа
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(jwtKey)
 }
 

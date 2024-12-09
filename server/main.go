@@ -63,7 +63,10 @@ func main() {
 	protectedRoutes.Use(middlewares.AuthMiddleware()) // добавляем AuthMiddleware
 
 	// Обработчик для статичных файлов (изображений)
-	protectedRoutes.Static("/media", "./media")
+	protectedRoutes.Static("/account", "./account")
+
+	// Только для admin.html
+	protectedRoutes.POST("/admin.html-only", middlewares.RoleAuth("admin.html"), controllers.AdminOnlyEndpoint)
 
 	// Запуск сервера
 	router.Run(":8080")

@@ -108,10 +108,11 @@
         <div class="p-3 pt-0 space-y-6 pb-8">
             <div class="flex flex-col sm:flex-row sm:space-x-6">
                 <!-- Дата занятия -->
-                <div class="w-full sm:w-2/5"> <!-- Уменьшена ширина с w-1/2 на w-2/5 -->
+                <div class="w-full sm:w-2/5">
                     <h2 class="text-lg font-semibold text-gray-700 py-4">Дата занятия</h2>
                     <input type="text" id="calendar" class="w-full bg-background border border-input p-2 rounded-md mt-2 hidden" placeholder="Выберите дату" />
                 </div>
+
 
                 <!-- Время занятия -->
                 <div class="w-full sm:w-2/5">
@@ -143,8 +144,6 @@
 
 
 
-
-
 <!-- Футер -->
 <br>
 <br>
@@ -172,6 +171,61 @@
 </body>
 
 <script>
+
+    async function fetchProducts() {
+        const token = localStorage.getItem('jwtToken');
+        const messageContainer = document.getElementById('messageContainer');
+        const productCatalog = document.getElementById('productCatalog');
+        const cartButton = document.getElementById('cartButton');
+
+        if (!token) {
+            messageContainer.innerHTML = `
+            <div class="alert alert-warning d-flex justify-content-between align-items-center">
+                <span>Пожалуйста, войдите в систему.</span>
+                <button type="button" class="btn-close" aria-label="Close" id="closeMessage"></button>
+            </div>
+        `;
+            productCatalog.style.display = 'none';
+            cartButton.style.display = 'none';
+
+            document.getElementById('closeMessage').addEventListener('click', function() {
+                window.location.href = 'media/login.html';  // Редирект на страницу логина
+            });
+            return;
+        }
+
+        try {
+            let url = 'http://localhost:8080/protected/products';
+            if (categoryId) {
+                url += `?category=${categoryId}`; // Фильтрация по категории
+            }
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка авторизации или доступа. Пожалуйста, войдите заново.');
+            }
+
+            const allServices = await response.json();
+            displayServices(allServices);
+
+            setTimeout(() => {
+                cartButton.classList.add('visible');
+            }, 100);
+
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert(error.message);
+        }
+    }
+
+
+
     // Получаем текущую дату
     const today = new Date();
 

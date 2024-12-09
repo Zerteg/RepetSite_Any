@@ -68,6 +68,7 @@ func RegisterUser(c *gin.Context) {
 		Email:    input.Email,
 		Phone:    input.Phone,
 		Password: password_hash, // Хешированный пароль
+		Role:     "user",
 	}
 
 	err = models.CreateUser(middlewares.DB, &user)
@@ -116,13 +117,16 @@ func LoginUser(c *gin.Context) {
 	}
 
 	// Создание и отправка JWT-токена
-	token, err := utils.GenerateJWT(user.ID)
+	token, err := utils.GenerateJWT(user.ID, user.Role) // Передаём роль
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{
+		"token": token,
+		"role":  user.Role, // Добавляем роль в ответ
+	})
 
 }
 
@@ -138,4 +142,14 @@ func GetUserProfile(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"profile": user})
+}
+
+func AdminOnlyEndpoint(c *gin.Context) {
+	role := c.GetString("role")
+	if role != "admin.html" {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Access denied"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Welcome, admin.html!"})
 }

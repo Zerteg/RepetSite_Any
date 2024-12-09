@@ -129,15 +129,22 @@
 
 
             .then(data => {
-
-                // Предположим, что сервер возвращает JWT токен
-                const jwtToken = data.token; // Токен из ответа
-
-                // Сохраняем токен в localStorage
+                // Сохраняем JWT токен
+                const jwtToken = data.token;
                 localStorage.setItem('jwtToken', jwtToken);
 
-                // Вход успешен, перенаправляем пользователя на страницу каталога
-                window.location.href = 'account.html';
+                // Получаем роль пользователя из ответа
+                const role = data.role;
+
+                // Выводим роль на консоль
+                console.log('Роль пользователя:', role);
+
+                // В зависимости от роли перенаправляем пользователя
+                if (role === 'admin') {
+                    window.location.href = 'admin.html'; // Страница для админа
+                } else {
+                    window.location.href = 'account.html'; // Стандартная страница для пользователя
+                }
             })
             .catch(error => {
                 // Обрабатываем ошибку

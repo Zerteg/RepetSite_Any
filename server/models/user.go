@@ -19,9 +19,10 @@ type User struct {
 	Email     string `gorm:"unique;not null" json:"email"`
 	Phone     string `gorm:"unique;size:12" json:"phone"`
 	Password  string `gorm:"not null" json:"password"`
+	Role      string `json:"role"`
 }
 
-// LoginInput структура для входных данных при регистрации
+// LoginInput структура для входных данных при входе
 type LoginInput struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
@@ -31,16 +32,6 @@ type LoginInput struct {
 func CreateUser(db *gorm.DB, user *User) error {
 	result := db.Create(user)
 	return result.Error
-}
-
-// GetUserByUsername находит пользователя по имени
-func GetUserByUsername(db *gorm.DB, username string) (*User, error) {
-	var user User
-	result := db.Where("username = ?", username).First(&user)
-	if result.Error != nil {
-		return nil, result.Error
-	}
-	return &user, nil
 }
 
 // GetUserByEmail находит пользователя по email
@@ -78,4 +69,14 @@ func GetUserProfile(db *gorm.DB, userID string) (User, error) {
 		return User{}, result.Error
 	}
 	return user, nil
+}
+
+// GetUserByUsername находит пользователя по имени
+func GetUserByUsername(db *gorm.DB, username string) (*User, error) {
+	var user User
+	result := db.Where("username = ?", username).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
 }

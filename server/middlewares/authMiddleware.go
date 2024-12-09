@@ -2,13 +2,12 @@ package middlewares
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"net/http"
 	"strings"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
 )
 
 // Секретный ключ для подписи токена
@@ -69,11 +68,57 @@ func AuthMiddleware() gin.HandlerFunc {
 				return
 			}
 
-			c.Next() // Токен валиден, продолжаем выполнение запроса
+			// Извлекаем userID и role из claims
+			userID, ok := claims["user_id"].(float64)
+			if !ok {
+				c.JSON(http.StatusUnauthorized, gin.H{"error": "Ошибка извлечения userID"})
+				c.Abort()
+				return
+			}
+			role, ok := claims["role"].(string)
+			if !ok {
+				c.JSON(http.StatusUnauthorized, gin.H{"error": "Ошибка извлечения роли"})
+				c.Abort()
+				return
+			}
+
+			// Устанавливаем userID и роль в контекст
+			c.Set("userID", userID)
+			c.Set("role", role)
+
+			// Переходим к следующему обработчику
+			c.Next()
 		} else {
 			fmt.Println("Invalid token claims or token not valid") // Логирование проблемы с claims
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Недействительный токен"})
 			c.Abort()
 		}
+	}
+}
+
+func RoleAuth(requiredRole string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Получаем роль из контекста
+		role, exists := c.Get("role")
+		if !exists {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Роль пользователя не найдена"})
+			c.Abort()
+			return
+		}
+
+		// Преобразуем роль в строку и сравниваем с требуемой
+		if roleStr, ok := role.(string); ok {
+			if roleStr != requiredRole {
+				c.JSON(http.StatusForbidden, gin.H{"error": "У вас нет прав доступа"})
+				c.Abort()
+				return
+			}
+		} else {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный формат роли"})
+			c.Abort()
+			return
+		}
+
+		c.Next() // Если роль совпала, продолжаем выполнение запроса
 	}
 }
